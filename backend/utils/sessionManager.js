@@ -7,7 +7,7 @@ const sessions = {};
 const createSession = (text) => {
   const sessionId = Date.now().toString();
   sessions[sessionId] = {
-    resumeText: text,
+    formText: text,
     answers: [],
     questionsAsked: [], // Add this to track asked questions
     questionCount: 0

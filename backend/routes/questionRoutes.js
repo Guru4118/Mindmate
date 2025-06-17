@@ -1,5 +1,5 @@
 const express = require('express');
-const { getNextQuestion, recordAnswer } = require('../controllers/questionController');
+const { getNextQuestion, recordAnswer } = require('../controllers/TherapistController');
 
 const router = express.Router();
 

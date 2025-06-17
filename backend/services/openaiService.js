@@ -2,6 +2,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 
+
 const TOGETHER_API_KEY = process.env.TOGETHER_API_KEY;
 
 
@@ -13,22 +14,23 @@ const headers = {
 };
 
 
+
 /**
  * Generates the next interview question based on resume and previous answers.
- * @param {string} resumeText - Text extracted from the resume.
+ * @param {string} formText - Text extracted from the resume.
  * @param {Array} answers - Array of previous answers.
  * @returns {Promise<string>} - Next interview question.
  */
-const generateQuestion = async (resumeText, questions = [], answers = []) => {
+const generateQuestion = async (formText, questions = [], answers = []) => {
   const qnaHistory = questions.map((q, i) => `Q${i + 1}: ${q}\nA${i + 1}: ${answers[i]}`).join('\n');
 
   const body = {
     model: "mistralai/Mistral-7B-Instruct-v0.1",
     messages: [
-      { role: "system", content: "You are an interviewer." },
+      { role: "system", content: "You are a therapist. Your role is to check in with the person, explore their thoughts, emotions, and struggles, and provide support through gentle, insightful questions." },
       {
         role: "user",
-        content: `Based on this resume:\n"""${resumeText}"""\nAnd previous Q&A:\n${qnaHistory}\nAsk the next relevant technical question that has not been asked before. Avoid repeating similar topics or phrasing.`,
+        content: `Using this form submission:\n"""${formText}"""\nAnd this previous Q&A:\n${qnaHistory}\nPlease ask the next relevant, thoughtful, and non-repeating question to help the person reflect more on their situation or progress. Keep your questions gentle, empathetic, and supportive in tone.`,
       },
     ],
     temperature: 0.7,
